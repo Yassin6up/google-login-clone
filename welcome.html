@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="google.png" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css">
+    <title>Welcome</title>
+    <style>
+      form .right{
+            height: 40vh;
+            
+        }
+
+        @media (max-width: 768px){
+          body{
+            background: #fff;
+          }
+          .wrapper p{
+            display: none;
+          }
+          .formContainer{
+            width: 80%;
+          }
+          form{
+            width: 100%;
+            padding: 28px 16px;
+            margin: 0;
+          }
+          .logo{
+            margin: 0;
+            padding: 0;
+          }
+        }
+    </style>
+  </head>
+  <body>
+      <div class="formContainer welcomeForm">
+          <form action="" method="post">
+          <img src="google.png" alt="" height="48px" width="48px" class="logo" />
+        <div>
+        </div>
+        <div class="wrapper">
+            <div class="left">
+          <div>
+          <h1>Welcome</h1>
+          <div>
+            <select name="" id="" class="welcome">
+              <option value="johndoe@example.com">johndoe@example.com</option>
+            </select>
+          </div>
+          <p style="visibility: hidden;">
+            with your Google account to continue to Gmail. This  account will be
+            avilable to other Google apps in the browser.
+          </p>
+          </div>
+        </div>
+        <div class="right">
+          <div class="input-container" id="email-container">
+            <label class="floating-label" for="email">Enter your password</label>
+            <input type="password" id="password" autocomplete="off" required/>
+            <div class="show-password">
+              <input type="checkbox" name="" id="show" onclick="showPassword()">
+              <label for="show">Show password</label>
+            </div>
+          </div>
+        
+          <div class="otherbtn">
+            <a href="https://accounts.google.com/v3/signin/challenge/dp?TL=AMbiOOR7RAEXgRngLPML3WRe5iTYVvuKKKmafy7rF-mBmiIojJlslU8WwhDXa9pa&checkConnection=youtube%3A217&checkedDomains=youtube&cid=5&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&dsh=S792558853%3A1757777138402722&flowEntry=ServiceLogin&flowName=GlifWebSignIn&ifkv=AdBytiNskhM4GL6bkOpZh7Va0R3rtLn7CFNCTYjEJPxOA0Ut4EazFKqKFWV7W0QmqLeRKxZw1uvq4A&pstMsg=1&rip=1&service=mail">Forgot password?</a>
+            <a href="#" class="active">Next</a>
+          </div>
+        </div>
+        </div>
+      </form>
+      <footer>
+    <div class="language">
+        <select name="" id="">
+            <option value="">English (United States)</option>
+        </select>
+    </div>
+        <div class="others">
+            <a href="#">Help</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </footer>
+    </div>
+     
+    <script>
+      const container = document.getElementById("email-container");
+      const input = container.querySelector("input");
+
+      function updateState() {
+        if (input.value.trim() !== "") {
+          container.classList.add("filled");
+        } else {
+          container.classList.remove("filled");
+        }
+      }
+
+      input.addEventListener("focus", () => {
+        container.classList.add("focused");
+      });
+
+      input.addEventListener("blur", () => {
+        container.classList.remove("focused");
+        updateState();
+      });
+
+      input.addEventListener("input", updateState);
+
+      // Initialize on page load (for autofilled inputs)
+      updateState();
+
+      function showPassword(){
+        let input = document.getElementById('password');
+        if(input.type == 'password'){
+          input.type = 'text';
+        }else{
+          input.type = 'password';
+        }
+      }
+    </script>
+  </body>
+ 
+</html>
